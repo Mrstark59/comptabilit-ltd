@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comptabilité LTD — Tableau de bord</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <div class="demo-banner">
+    ⚠️ MAQUETTE DE DÉMONSTRATION — les chiffres ci-dessous sont inventés.
+  </div>
+
+  <!-- Barre du haut : marque + identité de l'utilisateur connecté -->
+  <header class="topbar">
+    <div class="brand" style="font-size:1.1rem;">
+      <span class="logo">$</span>
+      <span>Comptabilité LTD</span>
+    </div>
+    <div class="user">
+      <span id="userName">—</span>
+      <span class="role-pill" id="rolePill">—</span>
+      <button class="btn-ghost" id="logout">Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <h1 class="page-title">Tableau de bord</h1>
+    <p class="page-sub">Suivi des entrées et sorties d'argent de la LTD.</p>
+
+    <!-- Cartes de totaux -->
+    <section class="cards">
+      <div class="card in">
+        <div class="label"><span class="dot green"></span> Total entrées</div>
+        <div class="value" id="totalIn">0 $</div>
+      </div>
+      <div class="card out">
+        <div class="label"><span class="dot red"></span> Total sorties</div>
+        <div class="value" id="totalOut">0 $</div>
+      </div>
+      <div class="card bal" id="soldeCard">
+        <div class="label"><span class="dot gold"></span> Solde (caisse)</div>
+        <div class="value" id="solde">0 $</div>
+      </div>
+    </section>
+
+    <!-- Barre de filtres -->
+    <div class="toolbar">
+      <input type="text" id="recherche" placeholder="🔎 Rechercher une raison…" />
+      <select id="filtreType">
+        <option value="tous">Tous les types</option>
+        <option value="entree">Entrées seulement</option>
+        <option value="sortie">Sorties seulement</option>
+      </select>
+      <span>
+        <select id="filtreSalarie">
+          <option value="tous">Tous les salariés</option>
+        </select>
+      </span>
+      <span class="spacer"></span>
+      <span class="count-info" id="countInfo">—</span>
+    </div>
+
+    <!-- Tableau des opérations -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Montant</th>
+            <th>Raison</th>
+            <th>Salarié</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Bloc visible uniquement par le Patron / Admin -->
+    <section class="admin-only" id="adminOnly">
+      <h2>⚙️ Espace Patron / Admin</h2>
+      <p>Ici tu pourras gérer les salariés, leurs rangs, et qui a le droit de voir quoi.</p>
+      <div class="lock-note">🔒 Fonction à construire à l'Étape 4 (gestion des comptes).</div>
+    </section>
+
+    <footer>
+      Comptabilité LTD · Maquette Étape 1 · Les vraies données arriveront via le bot Discord + Supabase.
+    </footer>
+
+  </main>
+
+  <!-- Les fausses données, puis la logique d'affichage -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>

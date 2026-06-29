@@ -1,0 +1,299 @@
+/* =========================================================
+   Comptabilité LTD — Feuille de style (Étape 1 : maquette)
+   Thème sombre type Discord / FiveM.
+   Tout est commenté en français pour que tu puisses bidouiller.
+   ========================================================= */
+
+/* --- Variables de couleurs : change ici pour changer tout le site --- */
+:root {
+  --bg:        #0f1117;   /* fond général très sombre */
+  --bg-card:   #1a1d27;   /* fond des cartes / blocs */
+  --bg-soft:   #232735;   /* fond un peu plus clair (lignes, hover) */
+  --border:    #2c3142;   /* couleur des bordures */
+  --text:      #e6e8ef;   /* texte principal */
+  --text-dim:  #9aa0b4;   /* texte secondaire / discret */
+  --accent:    #f0b429;   /* doré : couleur "argent" de la LTD */
+  --green:     #2fbf71;   /* entrées (argent qui rentre) */
+  --green-bg:  rgba(47, 191, 113, 0.12);
+  --red:       #ef4b5b;   /* sorties (argent qui sort) */
+  --red-bg:    rgba(239, 75, 91, 0.12);
+  --blue:      #5865f2;   /* bleu Discord pour les boutons */
+  --radius:    14px;
+  --shadow:    0 10px 30px rgba(0,0,0,0.35);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(1200px 600px at 80% -10%, #1b2030 0%, var(--bg) 55%);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+a { color: inherit; }
+
+/* =========================================================
+   BANDEAU DE DÉMO (à supprimer quand le site sera réel)
+   ========================================================= */
+.demo-banner {
+  background: repeating-linear-gradient(45deg, #2a2f3d, #2a2f3d 12px, #242838 12px, #242838 24px);
+  color: var(--accent);
+  text-align: center;
+  font-size: 0.82rem;
+  padding: 7px 12px;
+  letter-spacing: 0.3px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* =========================================================
+   ÉCRAN DE CONNEXION (login)
+   ========================================================= */
+.login-wrap {
+  min-height: calc(100vh - 36px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px 28px;
+  text-align: center;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+}
+.brand .logo {
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--accent), #c98a00);
+  color: #1a1300;
+  border-radius: 10px;
+  font-weight: 900;
+}
+.brand small { color: var(--text-dim); font-weight: 600; font-size: 0.7rem; }
+
+.login-card h1 { font-size: 1.05rem; margin: 22px 0 4px; }
+.login-card p.sub { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 22px; }
+
+.field { text-align: left; margin-bottom: 14px; }
+.field label { display: block; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 6px; }
+.field input, .field select {
+  width: 100%;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 11px 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+.field input:focus, .field select:focus { outline: 2px solid var(--blue); }
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.05s ease, filter 0.15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { filter: brightness(1.1); }
+
+.login-note {
+  margin-top: 18px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  background: var(--bg-soft);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* =========================================================
+   TABLEAU DE BORD (dashboard)
+   ========================================================= */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(16,18,24,0.6);
+  backdrop-filter: blur(6px);
+  position: sticky; top: 0; z-index: 10;
+}
+.topbar .user {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.9rem;
+}
+.role-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+}
+.role-pill.patron   { color: var(--accent); border-color: var(--accent); }
+.role-pill.comptable{ color: var(--blue);   border-color: var(--blue); }
+.role-pill.salarie  { color: var(--green);  border-color: var(--green); }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 8px 12px;
+  border-radius: 9px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--text-dim); }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+.page-title { font-size: 1.3rem; margin-bottom: 4px; }
+.page-sub { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 22px; }
+
+/* --- Cartes de résumé (totaux) --- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.card .label { color: var(--text-dim); font-size: 0.82rem; margin-bottom: 8px; display:flex; align-items:center; gap:8px;}
+.card .value { font-size: 1.7rem; font-weight: 800; }
+.card.in  .value { color: var(--green); }
+.card.out .value { color: var(--red); }
+.card.bal .value { color: var(--accent); }
+.dot { width:9px; height:9px; border-radius:50%; display:inline-block; }
+.dot.green { background: var(--green); }
+.dot.red   { background: var(--red); }
+.dot.gold  { background: var(--accent); }
+
+/* --- Barre de filtres --- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.toolbar input, .toolbar select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 11px;
+  border-radius: 9px;
+  font-size: 0.88rem;
+}
+.toolbar .spacer { flex: 1; }
+.count-info { color: var(--text-dim); font-size: 0.82rem; }
+
+/* --- Tableau des opérations --- */
+.table-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  text-align: left;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-soft);
+}
+tbody td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--bg-soft); }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 7px;
+}
+.tag.in  { color: var(--green); background: var(--green-bg); }
+.tag.out { color: var(--red);   background: var(--red-bg); }
+
+.montant { font-weight: 700; font-variant-numeric: tabular-nums; }
+.montant.in  { color: var(--green); }
+.montant.out { color: var(--red); }
+.raison { color: var(--text); }
+.salarie { color: var(--text-dim); }
+.date { color: var(--text-dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.empty {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 40px 16px;
+  font-size: 0.9rem;
+}
+
+/* --- Section "réservée au patron" --- */
+.admin-only {
+  margin-top: 26px;
+  background: linear-gradient(180deg, rgba(240,180,41,0.06), transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.admin-only h2 { font-size: 1rem; margin-bottom: 6px; }
+.admin-only p { color: var(--text-dim); font-size: 0.86rem; }
+.lock-note {
+  display:inline-flex; align-items:center; gap:8px;
+  margin-top: 12px;
+  font-size: 0.78rem; color: var(--accent);
+}
+
+footer {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  padding: 30px 16px;
+}
+
+/* --- Responsive : sur petit écran, le tableau scrolle horizontalement --- */
+@media (max-width: 680px) {
+  .table-wrap { overflow-x: auto; }
+  table { min-width: 560px; }
+  .topbar { padding: 12px 14px; }
+  .container { padding: 16px; }
+}

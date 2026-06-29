@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comptabilité LTD — Connexion</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Bandeau qui rappelle que c'est une DÉMO. À retirer plus tard. -->
+  <div class="demo-banner">
+    ⚠️ MAQUETTE DE DÉMONSTRATION — fausses données, aucune connexion réelle, rien n'est encore sécurisé.
+  </div>
+
+  <div class="login-wrap">
+    <div class="login-card">
+
+      <div class="brand">
+        <span class="logo">$</span>
+        <span>
+          Comptabilité LTD<br />
+          <small>Serveur FiveM RP</small>
+        </span>
+      </div>
+
+      <h1>Connexion à l'espace compta</h1>
+      <p class="sub">Choisis un rôle pour visualiser la démo.</p>
+
+      <!-- Pour l'instant : pas de vrai mot de passe.
+           On choisit juste un rôle pour voir "qui voit quoi". -->
+      <form id="loginForm">
+        <div class="field">
+          <label for="role">Je me connecte en tant que…</label>
+          <select id="role">
+            <option value="patron">Patron / Admin (voit tout)</option>
+            <option value="comptable">Comptable (voit tout, sans gestion)</option>
+            <option value="salarie">Salarié (voit seulement ses opérations)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="pseudo">Identifiant (factice pour la démo)</label>
+          <input type="text" id="pseudo" value="demo" />
+        </div>
+
+        <div class="field">
+          <label for="motdepasse">Mot de passe (factice pour la démo)</label>
+          <input type="password" id="motdepasse" value="••••••" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Entrer dans l'espace compta →</button>
+      </form>
+
+      <div class="login-note">
+        🔒 À l'Étape 2, ce formulaire deviendra une <strong>vraie connexion sécurisée</strong>
+        via Supabase (mots de passe chiffrés, rangs réels). Là, c'est juste pour voir le design.
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* On enregistre le rôle choisi puis on va au tableau de bord. */
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const role = document.getElementById("role").value;
+      sessionStorage.setItem("demo_role", role);
+      window.location.href = "dashboard.html";
+    });
+  </script>
+
+</body>
+</html>
