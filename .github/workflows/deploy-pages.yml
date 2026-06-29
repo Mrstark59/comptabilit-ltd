@@ -4,8 +4,8 @@ name: Déploiement GitHub Pages
 
 on:
   push:
-    branches: ["claude/discord-accounting-site-2m2jxt"]
-  workflow_dispatch:   # permet aussi de le lancer à la main
+    branches: ["main"]   # le site publié suit la branche principale
+  workflow_dispatch:     # permet aussi de le lancer à la main
 
 # Droits nécessaires pour publier sur Pages
 permissions:
