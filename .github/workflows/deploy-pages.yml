@@ -1,0 +1,43 @@
+# Automatisme qui publie le site sur GitHub Pages.
+# À chaque "push" sur la branche, le site est redéployé automatiquement.
+name: Déploiement GitHub Pages
+
+on:
+  push:
+    branches: ["claude/discord-accounting-site-2m2jxt"]
+  workflow_dispatch:   # permet aussi de le lancer à la main
+
+# Droits nécessaires pour publier sur Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# On évite deux déploiements en même temps
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Configurer Pages (et l'activer si besoin)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Préparer les fichiers du site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+      - name: Publier sur Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
