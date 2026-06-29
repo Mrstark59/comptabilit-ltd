@@ -9,154 +9,189 @@
 <body>
 
   <div class="demo-banner">
-    ⚠️ MAQUETTE DE DÉMONSTRATION — chiffres inventés. Tu peux cliquer partout, modifier les catégories, déclarer une note de frais : rien n'est encore sauvegardé.
+    ⚠️ MAQUETTE — chiffres inventés. Tu peux tout cliquer et modifier ; rien n'est encore sauvegardé.
   </div>
 
-  <!-- Barre du haut -->
-  <header class="topbar">
-    <div class="brand" style="font-size:1.1rem;">
-      <span class="logo">$</span>
-      <span>Comptabilité LTD</span>
-    </div>
-    <div class="user">
-      <span id="userName">—</span>
-      <span class="role-pill" id="rolePill">—</span>
-      <button class="btn-ghost" id="logout">Déconnexion</button>
-    </div>
-  </header>
+  <div class="app" id="app">
 
-  <!-- Disposition : menu à gauche + contenu à droite -->
-  <div class="layout">
-
-    <!-- MENU LATÉRAL -->
+    <!-- ===================== MENU LATÉRAL ===================== -->
     <aside class="sidebar">
-      <div class="nav-title">Comptabilité</div>
+      <div class="side-head">
+        <div class="side-logo"><span class="logo">$</span> LTD</div>
+        <button class="btn-ghost" id="closeSide">Fermer</button>
+      </div>
+
+      <div class="side-company">
+        <div class="avatar">LG</div>
+        <div>
+          <div class="label-up">Entreprise principale</div>
+          <div class="company-name">LTD Grove Street</div>
+        </div>
+      </div>
+
+      <div class="company-pill">
+        <span>LTD Grove Street</span>
+        <span class="chev">▾</span>
+      </div>
+
+      <div class="side-divider"></div>
+      <div class="label-up" style="padding:0 6px">LTD Grove Street</div>
+
+      <!-- Groupe dépliable "Comptabilité" -->
       <nav class="nav">
-        <button class="nav-item" data-page="bilan">📊 <span>Bilan</span></button>
-        <button class="nav-item" data-page="factures">🧾 <span>Factures</span></button>
-        <button class="nav-item" data-page="depenses">💸 <span>Dépenses</span></button>
-        <button class="nav-item" data-page="notes">📝 <span>Notes de frais</span></button>
+        <button class="nav-parent open" id="comptaParent">
+          <span>📄</span> <span>Comptabilité</span> <span class="chev">▾</span>
+        </button>
+        <div class="nav-sub" id="comptaSub">
+          <button class="nav-item" data-page="bilan" data-title="Tableau de bord">📊 <span>Bilan</span></button>
+          <button class="nav-item" data-page="factures" data-title="Factures">🧾 <span>Factures</span></button>
+          <button class="nav-item" data-page="depenses" data-title="Dépenses">💸 <span>Dépenses</span></button>
+          <button class="nav-item" data-page="notes" data-title="Notes de frais">📝 <span>Notes de frais</span></button>
+        </div>
       </nav>
     </aside>
 
-    <!-- CONTENU -->
-    <main class="content">
+    <div class="backdrop" id="backdrop"></div>
 
-      <!-- ================= PAGE BILAN ================= -->
-      <section class="page" id="page-bilan">
-        <h1 class="page-title">Bilan de la semaine</h1>
-        <p class="page-sub">Vue d'ensemble des entrées et sorties d'argent (semaine en cours).</p>
-
-        <div class="cards">
-          <div class="card in">
-            <div class="label"><span class="dot green"></span> Chiffre d'affaires — Factures</div>
-            <div class="value" id="caFactures">0 $</div>
-          </div>
-          <div class="card in">
-            <div class="label"><span class="dot blue"></span> Chiffre d'affaires — Essence</div>
-            <div class="value" id="caEssence" style="color:var(--blue)">0 $</div>
-          </div>
-          <div class="card out">
-            <div class="label"><span class="dot red"></span> Dépenses <small>(hors salaires)</small></div>
-            <div class="value" id="totalDepenses">0 $</div>
-          </div>
-          <div class="card bal">
-            <div class="label"><span class="dot gold"></span> Bénéfice estimé</div>
-            <div class="value" id="benefice">0 $</div>
-          </div>
+    <!-- ===================== CONTENU ===================== -->
+    <div class="main">
+      <div class="main-top">
+        <button class="hamburger" id="openSide">☰</button>
+        <h1 id="pageTitle">Tableau de bord</h1>
+        <div class="right">
+          <span id="userName" class="small">—</span>
+          <span class="role-pill" id="rolePill">—</span>
+          <button class="btn-ghost" id="logout">Déconnexion</button>
         </div>
+      </div>
 
-        <div class="info-box">
-          ℹ️ Le <strong>Bénéfice estimé</strong> = (CA Factures + CA Essence) − Dépenses.
-          Les dépenses de type <strong>Salaire</strong> ne sont pas comptées ici, comme demandé.
-        </div>
-      </section>
+      <div class="main-body">
 
-      <!-- ================= PAGE FACTURES ================= -->
-      <section class="page" id="page-factures" hidden>
-        <h1 class="page-title">Factures</h1>
-        <p class="page-sub">Toutes les entrées d'argent enregistrées.</p>
+        <!-- =============== PAGE BILAN =============== -->
+        <section class="page" id="page-bilan">
 
-        <div class="toolbar">
-          <input type="text" id="rechFactures" placeholder="🔎 Rechercher une raison…" />
-          <select id="filtreTypeFacture">
-            <option value="tous">Tous types</option>
-            <option value="magasin">Magasin</option>
-            <option value="essence">Essence</option>
-          </select>
-          <span class="spacer"></span>
-          <span class="count-info" id="countFactures">—</span>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Date</th><th>Type</th><th>Montant</th><th>Raison</th><th>Salarié</th></tr>
-            </thead>
-            <tbody id="tbodyFactures"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- ================= PAGE DÉPENSES ================= -->
-      <section class="page" id="page-depenses" hidden>
-        <h1 class="page-title">Dépenses</h1>
-        <p class="page-sub">Choisis la catégorie de chaque dépense. Les <strong>salaires</strong> sont exclus du total du Bilan.</p>
-
-        <div class="toolbar">
-          <input type="text" id="rechDepenses" placeholder="🔎 Rechercher une raison…" />
-          <select id="filtreCategorie">
-            <option value="tous">Toutes catégories</option>
-            <option value="matiere">Matière première</option>
-            <option value="salaire">Salaire</option>
-            <option value="">Non catégorisée</option>
-          </select>
-          <span class="spacer"></span>
-          <span class="count-info" id="countDepenses">—</span>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Date</th><th>Montant</th><th>Raison</th><th>Salarié</th><th>Catégorie</th></tr>
-            </thead>
-            <tbody id="tbodyDepenses"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- ================= PAGE NOTES DE FRAIS ================= -->
-      <section class="page" id="page-notes" hidden>
-        <h1 class="page-title">Notes de frais</h1>
-        <p class="page-sub" id="notesSub">—</p>
-
-        <!-- Formulaire de déclaration (visible par les salariés) -->
-        <div class="form-card" id="formNote">
-          <h2>Déclarer une note de frais</h2>
-          <div class="form-row">
-            <div class="field">
-              <label for="noteRaison">Raison</label>
-              <input type="text" id="noteRaison" placeholder="Ex : essence véhicule perso pour livraison" />
+          <!-- Sélecteur de semaine -->
+          <div class="panel">
+            <div class="panel-title">Chiffre d'affaires — Audit hebdomadaire</div>
+            <div class="week-selector">
+              <button class="arrow" id="weekPrev">‹</button>
+              <div class="week-center">
+                <div class="wk"><span id="weekNum">W27</span> <span>2026</span></div>
+                <div class="per">Période</div>
+              </div>
+              <button class="arrow" id="weekNext">›</button>
             </div>
-            <div class="field" style="max-width:160px">
-              <label for="noteMontant">Montant ($)</label>
-              <input type="number" id="noteMontant" min="0" placeholder="0" />
-            </div>
-            <button class="btn btn-primary" id="ajouterNote" style="width:auto;align-self:flex-end">Déclarer</button>
           </div>
-        </div>
 
-        <div class="table-wrap" style="margin-top:18px">
-          <table>
-            <thead>
-              <tr><th>Date</th><th>Salarié</th><th>Raison</th><th>Montant</th><th>Statut</th></tr>
-            </thead>
-            <tbody id="tbodyNotes"></tbody>
-          </table>
-        </div>
-      </section>
+          <!-- Solde courant -->
+          <div class="panel solde-panel">
+            <div class="solde-head">
+              <span class="label-up">Solde courant</span>
+              <div class="solde-actions">
+                <button class="btn-ghost" id="toggleSolde">🙈 Masquer</button>
+                <button class="btn-ghost" id="refreshSolde">↻ Rafraîchir</button>
+              </div>
+            </div>
+            <div class="solde-value" id="soldeValue">0 $</div>
+            <div class="small">Réserve opérationnelle de l'entreprise</div>
+          </div>
 
-    </main>
+          <!-- Statistiques de la semaine -->
+          <div class="stats-grid">
+            <div class="stat-card green">
+              <div class="label"><span class="dot green"></span> CA — Factures</div>
+              <div class="value" id="caFactures">0 $</div>
+            </div>
+            <div class="stat-card blue">
+              <div class="label"><span class="dot blue"></span> CA — Essence</div>
+              <div class="value" id="caEssence">0 $</div>
+            </div>
+            <div class="stat-card red">
+              <div class="label"><span class="dot red"></span> Dépenses <small>(hors salaires)</small></div>
+              <div class="value" id="totalDepenses">0 $</div>
+            </div>
+            <div class="stat-card purple">
+              <div class="label"><span class="dot gold"></span> Bénéfice estimé</div>
+              <div class="value" id="benefice">0 $</div>
+            </div>
+          </div>
+
+          <div class="info-box" style="margin-top:18px">
+            ℹ️ Bénéfice = (CA Factures + CA Essence) − Dépenses. Les dépenses de type
+            <strong>Salaire</strong> sont exclues du total Dépenses, comme demandé.
+          </div>
+        </section>
+
+        <!-- =============== PAGE FACTURES =============== -->
+        <section class="page" id="page-factures" hidden>
+          <p class="page-sub">Toutes les entrées d'argent enregistrées.</p>
+          <div class="toolbar">
+            <input type="text" id="rechFactures" placeholder="🔎 Rechercher une raison…" />
+            <select id="filtreTypeFacture">
+              <option value="tous">Tous types</option>
+              <option value="magasin">Magasin</option>
+              <option value="essence">Essence</option>
+            </select>
+            <span class="spacer"></span>
+            <span class="count-info" id="countFactures">—</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Type</th><th>Montant</th><th>Raison</th><th>Salarié</th></tr></thead>
+              <tbody id="tbodyFactures"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =============== PAGE DÉPENSES =============== -->
+        <section class="page" id="page-depenses" hidden>
+          <p class="page-sub">Choisis la catégorie de chaque dépense. Les <strong>salaires</strong> sont exclus du total du Bilan.</p>
+          <div class="toolbar">
+            <input type="text" id="rechDepenses" placeholder="🔎 Rechercher une raison…" />
+            <select id="filtreCategorie">
+              <option value="tous">Toutes catégories</option>
+              <option value="matiere">Matière première</option>
+              <option value="salaire">Salaire</option>
+              <option value="">Non catégorisée</option>
+            </select>
+            <span class="spacer"></span>
+            <span class="count-info" id="countDepenses">—</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Montant</th><th>Raison</th><th>Salarié</th><th>Catégorie</th></tr></thead>
+              <tbody id="tbodyDepenses"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =============== PAGE NOTES DE FRAIS =============== -->
+        <section class="page" id="page-notes" hidden>
+          <p class="page-sub" id="notesSub">—</p>
+          <div class="form-card" id="formNote">
+            <h2>Déclarer une note de frais</h2>
+            <div class="form-row">
+              <div class="field">
+                <label for="noteRaison">Raison</label>
+                <input type="text" id="noteRaison" placeholder="Ex : essence véhicule perso pour livraison" />
+              </div>
+              <div class="field" style="max-width:160px">
+                <label for="noteMontant">Montant ($)</label>
+                <input type="number" id="noteMontant" min="0" placeholder="0" />
+              </div>
+              <button class="btn btn-primary btn-inline" id="ajouterNote">Déclarer</button>
+            </div>
+          </div>
+          <div class="table-wrap" style="margin-top:18px">
+            <table>
+              <thead><tr><th>Date</th><th>Salarié</th><th>Raison</th><th>Montant</th><th>Statut</th></tr></thead>
+              <tbody id="tbodyNotes"></tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+    </div>
   </div>
 
   <script src="assets/js/data.js"></script>
